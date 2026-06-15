@@ -1,19 +1,21 @@
 package com.example.tra;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.MappedSuperclass;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @MappedSuperclass
 @Data
-public class Person {
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    String firstName;
-    String lastName;
-    String gender;
-    String phoneNumber;
-    String email;
+@AllArgsConstructor
+@NoArgsConstructor
+public abstract class Person {
+
+    private String firstName;
+    private String lastName;
+    private String gender;
+    private String phoneNumber;
+    private String email;
 
     @Override
     public String toString() {
