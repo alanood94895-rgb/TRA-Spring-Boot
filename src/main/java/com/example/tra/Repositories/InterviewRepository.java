@@ -1,6 +1,6 @@
 package com.example.tra.Repositories;
 
-import com.example.tra.Interview;
+import com.example.tra.Entities.Interview;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

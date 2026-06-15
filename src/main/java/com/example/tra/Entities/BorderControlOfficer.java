@@ -1,4 +1,4 @@
-package com.example.tra;
+package com.example.tra.Entities;
 
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;

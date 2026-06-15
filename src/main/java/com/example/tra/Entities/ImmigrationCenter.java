@@ -1,4 +1,4 @@
-package com.example.tra;
+package com.example.tra.Entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,6 +21,6 @@ import java.util.List;
         private String type;
         private int dailyCapacity;
 
-        @OneToMany(mappedBy = "center")
+        @OneToMany
         private List<ImmigrationOfficer> officers;
 }

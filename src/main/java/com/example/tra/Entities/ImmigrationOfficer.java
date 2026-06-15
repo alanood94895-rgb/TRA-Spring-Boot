@@ -1,4 +1,5 @@
-package com.example.tra;
+package com.example.tra.Entities;
+
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,19 +12,20 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Applicant extends Person {
+public class ImmigrationOfficer extends Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String passportNumber;
-    private String nationality;
-    private Boolean criminalRecord;
+    private String badgeNumber;
+    private String officerRank;
+    private int clearanceLevel;
+    private boolean active;
 
-    @OneToMany(mappedBy = "applicant")
-    private List<VisaApplication> visaApplications;
+    @ManyToOne
+    private ImmigrationCenter center;
 
-    @OneToMany(mappedBy = "applicant")
+    @OneToMany
     private List<Interview> interviews;
 }
