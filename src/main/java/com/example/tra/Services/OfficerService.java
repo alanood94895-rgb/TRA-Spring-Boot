@@ -7,6 +7,7 @@ import com.example.tra.Repositories.OfficerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -70,4 +71,4 @@ import java.util.List;
         }
     }
 
-}
+
