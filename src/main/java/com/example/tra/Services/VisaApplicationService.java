@@ -7,6 +7,8 @@ import com.example.tra.Repositories.OfficerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class VisaApplicationService {
     @Autowired
