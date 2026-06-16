@@ -68,7 +68,6 @@ public class VisaApplicationService {
         return visaApplicationRepository.save(visa);
     }
 
-    // 3. Process Visa
     public VisaApplication processVisa(Long visaId,
                                        String newStatus,
                                        String notes) {
