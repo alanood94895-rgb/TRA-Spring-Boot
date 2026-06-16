@@ -33,7 +33,6 @@ public class InterviewService {
         ImmigrationOfficer officer = officerRepository.findById(officerId)
                 .orElseThrow(() -> new RuntimeException("Officer Not Found"));
 
-        // Crucial validation: check double booking
         List<Interview> existingInterviews =
                 interviewRepository.findByOfficerIdAndInterviewDate(officerId, date);
 
