@@ -27,6 +27,7 @@ public class InterviewService {
                                        Long officerId,
                                        String date) {
 
+
         Applicant applicant = applicantRepository.findById(applicantId)
                 .orElseThrow(() -> new RuntimeException("Applicant Not Found"));
 
@@ -50,7 +51,6 @@ public class InterviewService {
         return interviewRepository.save(interview);
     }
 
-    // Complete Interview
     public Interview completeInterview(Long interviewId) {
 
         Interview interview = interviewRepository.findById(interviewId)
