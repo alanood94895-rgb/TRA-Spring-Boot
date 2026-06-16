@@ -60,5 +60,9 @@ public class InterviewService {
 
         return interviewRepository.save(interview);
     }
+
+    public List<Interview> getByOfficerAndDate(Long officerId, String date) {
+        return interviewRepository.findByOfficerIdAndInterviewDate(officerId, date);
+    }
 }
 
