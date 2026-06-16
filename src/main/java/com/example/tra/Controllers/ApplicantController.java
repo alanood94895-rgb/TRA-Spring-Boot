@@ -1,5 +1,8 @@
 package com.example.tra.Controllers;
 
+import com.example.tra.Entities.Applicant;
+import com.example.tra.Repositories.ApplicantRepository;
+import com.example.tra.Services.ApplicantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
