@@ -84,4 +84,17 @@ public class VisaApplicationService {
 
         return visaApplicationRepository.save(visa);
     }
+    public List<VisaApplication> getByApplicant(Long applicantId) {
+        return visaApplicationRepository.findAll()
+                .stream()
+                .filter(v -> v.getApplicant().getId().equals(applicantId))
+                .toList();
+    }
+
+    public List<VisaApplication> getByStatus(String status) {
+        return visaApplicationRepository.findAll()
+                .stream()
+                .filter(v -> v.getStatus().equalsIgnoreCase(status))
+                .toList();
+    }
 }
