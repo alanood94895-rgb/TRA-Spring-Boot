@@ -1,7 +1,9 @@
 package com.example.tra.Services;
 
+import com.example.tra.Entities.Applicant;
 import com.example.tra.Entities.ImmigrationCenter;
 import com.example.tra.Entities.ImmigrationOfficer;
+import com.example.tra.Entities.VisaApplication;
 import com.example.tra.Repositories.ApplicantRepository;
 import com.example.tra.Repositories.CenterRepository;
 import com.example.tra.Repositories.OfficerRepository;
@@ -24,7 +26,6 @@ public class VisaApplicationService {
     @Autowired
     OfficerRepository officerRepository;
 
-    // 1. Submit Application
     public VisaApplication submitApplication(Long applicantId,
                                              String visaType) {
 
