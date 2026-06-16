@@ -71,4 +71,4 @@ public class VisaApplicationService {
         return result;
     }
 }
-}
+
