@@ -68,9 +68,7 @@ public class VisaApplicationService {
         return visaApplicationRepository.save(visa);
     }
 
-    public VisaApplication processVisa(Long visaId,
-                                       String newStatus,
-                                       String notes) {
+    public VisaApplication processVisa(Long visaId, String newStatus, String notes) {
 
         VisaApplication visa = visaApplicationRepository.findById(visaId)
                 .orElseThrow(() -> new RuntimeException("Visa Not Found"));
