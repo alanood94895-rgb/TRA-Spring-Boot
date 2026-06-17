@@ -12,50 +12,36 @@ import java.util.List;
 public class ApplicantService {
 
     @Autowired
-     ApplicantRepository applicantRepository;
+    ApplicantRepository applicantRepository;
 
     @Autowired
-     InterviewRepository interviewRepository;
+    InterviewRepository interviewRepository;
 
-    public ApplicantService(ApplicantRepository applicantRepository,
-                            InterviewRepository interviewRepository) {
-        this.applicantRepository = applicantRepository;
-        this.interviewRepository = interviewRepository;
-    }
-
+    //Save full Applicant Object
     public Applicant saveApplicant(Applicant applicant) {
-
         if (applicant.getPassportNumber() == null || applicant.getPassportNumber().isEmpty()) {
-            throw new RuntimeException("Passport number cannot be null or empty");
+            throw Exceptions.badRequest("Error:Passport number is required");
         }
-
         if (applicant.getFirstName() == null || applicant.getFirstName().isEmpty()) {
-            throw new RuntimeException("First name is required");
+            throw Exceptions.badRequest("Error:first name is required");
         }
-
         if (applicant.getLastName() == null || applicant.getLastName().isEmpty()) {
-            throw new RuntimeException("Last name is required");
+            throw Exceptions.badRequest("Error:Last name is required");
         }
-
         return applicantRepository.save(applicant);
     }
 
+    //Save From individual Strings
+    public Applicant saveApplicant(String firstName, String lastName, String passportNumber, String nationality) {
 
-    public Applicant saveApplicant(String firstName,
-                                   String lastName,
-                                   String passportNumber,
-                                   String nationality) {
-
-        if (passportNumber == null || passportNumber.isEmpty()) {
-            throw new RuntimeException("Passport number cannot be null or empty");
+        if (passportNumber == null || passportNumber.isEmpty()){
+            throw Exceptions.badRequest("Error:Passport number is required");
         }
-
-        if (firstName == null || firstName.isEmpty()) {
-            throw new RuntimeException("First name is required");
+        if (firstName == null || lastName.isEmpty()){
+            throw Exceptions.badRequest("Error:First name is required");
         }
-
-        if (lastName == null || lastName.isEmpty()) {
-            throw new RuntimeException("Last name is required");
+        if (lastName == null || lastName.isEmpty()){
+            throw Exceptions.badRequest("Error:Last Name is required");
         }
 
         Applicant applicant = new Applicant();
@@ -63,27 +49,36 @@ public class ApplicantService {
         applicant.setLastName(lastName);
         applicant.setPassportNumber(passportNumber);
         applicant.setNationality(nationality);
-
         return applicantRepository.save(applicant);
     }
 
-    public void flagCriminalRecord(Long applicantId) {
-
+    public Applicant flagCriminalRecord(Long applicantId){
         Applicant applicant = applicantRepository.findById(applicantId)
-                .orElseThrow(() -> new RuntimeException("Applicant not found"));
+                .orElseThrow(() -> Exceptions.notFound("Applicant not found with id: " + applicantId));
 
-        applicant.setCriminalRecord(true);
+        applicant.setCriminalRecorde(true);
         applicantRepository.save(applicant);
 
-        List<Interview> scheduledInterviews =
-                interviewRepository.findByOfficerIdAndInterviewDate(applicantId, "SCHEDULED");
-
-        for (Interview interview : scheduledInterviews) {
-            interview.setStatus("CANCELLED");
+        List<Interview> scheduledInterviews = interviewRepository.findByApplicantIdAndStatus(applicantId, "SCHEDULED");
+        if (!scheduledInterviews.isEmpty()) {
+            for (Interview interview : scheduledInterviews) {
+                interview.setStatus("CANCELLED");
+                interviewRepository.save(interview);
+            }
         }
-
-        interviewRepository.saveAll(scheduledInterviews);
+        return applicant;
     }
+
+    public List<Applicant> getAllApplicant(){
+        return applicantRepository.findAll();
+    }
+
+
+    public List<Applicant> findByNationality(String nationality){
+        if (nationality == null || nationality.isEmpty()){
+            throw Exceptions.badRequest("Error:Nationality is required");
+        }
+        return applicantRepository.findByNationality(nationality);
+    }
+
 }
-
-
