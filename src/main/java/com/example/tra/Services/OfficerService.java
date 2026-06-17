@@ -48,7 +48,6 @@ public class OfficerService {
         return officerRepository.findByOfficerRank(rank);
     }
 
-    //Find Officer by Rank with minimum clearance level
     public List<ImmigrationOfficer> findOfficerByRank(String rank, int minimumClearanceLevel) {
         List<ImmigrationOfficer> officers = officerRepository.findByOfficerRank(rank);
         List<ImmigrationOfficer> result = new ArrayList<>();
