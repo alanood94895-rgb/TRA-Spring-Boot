@@ -21,4 +21,6 @@ public class CenterDTO {
         dto.setType(center.getType());
         dto.setDailyCapacity(center.getDailyCapacity());
         return dto;
+    }
+
 }
