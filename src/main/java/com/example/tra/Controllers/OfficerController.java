@@ -1,52 +1,49 @@
 package com.example.tra.Controllers;
 
+import com.example.tra.DTOs.OfficerDTO;
 import com.example.tra.Entities.BorderControlOfficer;
 import com.example.tra.Entities.ImmigrationOfficer;
 import com.example.tra.Repositories.OfficerRepository;
 import com.example.tra.Services.OfficerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/officers")
+@RequestMapping("officers")
 public class OfficerController {
     @Autowired
-    private OfficerService officerService;
-
-    @Autowired
-    private OfficerRepository officerRepository;
+    OfficerService officerService;
 
     @PostMapping
-    public ImmigrationOfficer hireOfficer(@RequestBody ImmigrationOfficer officer) {
-        return officerRepository.save(officer);
+    public ResponseEntity<OfficerDTO> hireOfficer(@RequestBody ImmigrationOfficer officer){
+        return ResponseEntity.ok(OfficerDTO.convertToDTO(officerService.saveOfficer(officer)));
     }
 
     @PostMapping("/border")
-    public BorderControlOfficer hireBorderOfficer(@RequestBody BorderControlOfficer officer) {
-        return officerRepository.save(officer);
+    public ResponseEntity<OfficerDTO> hireBorderOfficer(@RequestBody BorderControlOfficer officer) {
+        return ResponseEntity.ok(OfficerDTO.convertToDTO(officerService.saveOfficer(officer)));
     }
 
     @GetMapping("/{id}")
-    public ImmigrationOfficer getOfficer(@PathVariable Long id) {
-        return officerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Officer not found"));
+    public ResponseEntity<OfficerDTO> getOfficerById(@PathVariable Long id){
+        return ResponseEntity.ok(OfficerDTO.convertToDTO(officerService.getOfficerById(id)));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<OfficerDTO>> getAllOfficers(){
+        return ResponseEntity.ok(OfficerDTO.convertToDTO(officerService.getAllOfficers()));
     }
 
     @PutMapping("/{id}/promote")
-    public ImmigrationOfficer promoteOfficer(
-            @PathVariable Long id,
-            @RequestParam String rank,
-            @RequestParam int clearance) {
-
-        return officerService.promoteOfficer(id, rank, clearance);
+    public ResponseEntity<OfficerDTO> promoteOfficer(@PathVariable Long id, @RequestParam String rank, @RequestParam int clearance){
+        return ResponseEntity.ok(OfficerDTO.convertToDTO(officerService.promoteOfficer(id,rank,clearance)));
     }
 
-    @PutMapping("/transfer/{centerId}")
-    public ImmigrationOfficer transferOfficer(
-            @RequestParam Long officerId,
-            @PathVariable Long centerId) {
-
-        return officerService.transferOfficer(officerId, centerId);
+    @PutMapping("/{id}/transfer/{centerId}")
+    public ResponseEntity<OfficerDTO> transferOfficer(@PathVariable Long id, @PathVariable Long centerId){
+        return ResponseEntity.ok(OfficerDTO.convertToDTO(officerService.transferOfficer(id, centerId)));
     }
 }
-
