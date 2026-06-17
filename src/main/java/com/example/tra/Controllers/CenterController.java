@@ -1,26 +1,28 @@
 package com.example.tra.Controllers;
 
+import com.example.tra.DTOs.CenterDTO;
 import com.example.tra.Entities.ImmigrationCenter;
 import com.example.tra.Repositories.CenterRepository;
+import com.example.tra.Services.CenterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/centers")
+@RequestMapping("centers")
 public class CenterController {
 
     @Autowired
-    private CenterRepository centerRepository;
+    CenterService centerService;
+
 
     @PostMapping
-    public ImmigrationCenter createCenter(@RequestBody ImmigrationCenter center) {
-        return centerRepository.save(center);
+    public ResponseEntity<CenterDTO> addCenter(@RequestBody ImmigrationCenter center){
+        return ResponseEntity.ok(CenterDTO.convertToDTO(centerService.createCenter(center)));
     }
 
     @GetMapping("/{id}")
-    public ImmigrationCenter getCenter(@PathVariable Long id) {
-        return centerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Center not found"));
+    public ResponseEntity<CenterDTO> getCenterById(@PathVariable Long id){
+        return ResponseEntity.ok(CenterDTO.convertToDTO(centerService.getCenterByID(id)));
     }
-
 }
