@@ -20,7 +20,6 @@ public class OfficerService {
     @Autowired
     CenterRepository centerRepository;
 
-    //Officer with clearance validation
     public ImmigrationOfficer promoteOfficer(Long officerId, String newOfficerRank, int newClearanceLevel1) {
         if (newClearanceLevel1 < 1 || newClearanceLevel1 > 5) { //Access Level of the officer
             throw Exceptions.badRequest("Clearance Level must be between 1 and 5");
