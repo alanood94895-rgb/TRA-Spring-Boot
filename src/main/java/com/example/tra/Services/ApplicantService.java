@@ -34,10 +34,10 @@ public class ApplicantService {
     public Applicant saveApplicant(String firstName, String lastName, String passportNumber, String nationality) {
 
         if (passportNumber == null || passportNumber.isEmpty()){
-            throw Exceptions.badRequest("Error:Passport number is required");
+            throw Exception.badRequest("Error:Passport number is required");
         }
         if (firstName == null || lastName.isEmpty()){
-            throw Exceptions.badRequest("Error:First name is required");
+            throw Exception.badRequest("Error:First name is required");
         }
         if (lastName == null || lastName.isEmpty()){
             throw Exceptions.badRequest("Error:Last Name is required");
