@@ -32,7 +32,6 @@ public class OfficerService {
         return officerRepository.save(officer);
     }
 
-    //Transfer officer to new center
     public ImmigrationOfficer transferOfficer(Long officerId, Long newCenterId) {
         ImmigrationOfficer officer = officerRepository.findById(officerId)
                 .orElseThrow(() -> Exceptions.notFound("Officer not found with id: " + officerId));
