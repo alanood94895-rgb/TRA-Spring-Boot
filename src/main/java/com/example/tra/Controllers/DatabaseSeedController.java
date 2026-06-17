@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class DatabaseSeedController {
-
     @Autowired
     CenterRepository centerRepository;
 
@@ -25,82 +24,82 @@ public class DatabaseSeedController {
     public ResponseEntity<String> seedDatabase() {
 
         ImmigrationCenter center1 = new ImmigrationCenter();
-        center1.setName("Muscat Embassy");
+        center1.setName("Muscat Immigration Center");
         center1.setLocationCountry("Oman");
-        center1.setType("Embassy");
-        center1.setDailyCapacity(50);
+        center1.setType("Processing");
+        center1.setDailyCapacity(120);
         centerRepository.save(center1);
 
         ImmigrationCenter center2 = new ImmigrationCenter();
-        center2.setName("Muscat Border Control");
+        center2.setName("Salalah Border Office");
         center2.setLocationCountry("Oman");
-        center2.setType("Border");
-        center2.setDailyCapacity(100);
+        center2.setType("Border Control");
+        center2.setDailyCapacity(80);
         centerRepository.save(center2);
 
         ImmigrationOfficer officer1 = new ImmigrationOfficer();
-        officer1.setFirstName("Ahmed");
-        officer1.setLastName("Al-Rashdi");
-        officer1.setBadgeNumber("OFF001");
-        officer1.setOfficerRank("Senior");
+        officer1.setFirstName("Bader");
+        officer1.setLastName("Al-Harthi");
+        officer1.setBadgeNumber("OFF101");
+        officer1.setOfficerRank("Senior Officer");
         officer1.setClearanceLevel(5);
         officer1.setActive(true);
         officer1.setCenter(center1);
         officerRepository.save(officer1);
 
         ImmigrationOfficer officer2 = new ImmigrationOfficer();
-        officer2.setFirstName("Sara");
-        officer2.setLastName("Al-Balushi");
-        officer2.setBadgeNumber("OFF002");
-        officer2.setOfficerRank("Junior");
-        officer2.setClearanceLevel(2);
+        officer2.setFirstName("Abdullah");
+        officer2.setLastName("Al-Riyami");
+        officer2.setBadgeNumber("OFF102");
+        officer2.setOfficerRank("Junior Officer");
+        officer2.setClearanceLevel(3);
         officer2.setActive(true);
         officer2.setCenter(center1);
         officerRepository.save(officer2);
 
-        BorderControlOfficer borderOfficer = new BorderControlOfficer();
-        borderOfficer.setFirstName("Khalid");
-        borderOfficer.setLastName("Al-Harthi");
-        borderOfficer.setBadgeNumber("BOR001");
-        borderOfficer.setOfficerRank("Senior");
-        borderOfficer.setClearanceLevel(4);
-        borderOfficer.setActive(true);
-        borderOfficer.setCenter(center2);
-        borderOfficer.setAssignedCheckpoint("Gate A");
-        borderOfficer.setK9UnitAssigned(true);
-        officerRepository.save(borderOfficer);
+        BorderControlOfficer officer3 = new BorderControlOfficer();
+        officer3.setFirstName("Khalid");
+        officer3.setLastName("Al-Balushi");
+        officer3.setBadgeNumber("BOR201");
+        officer3.setOfficerRank("Border Supervisor");
+        officer3.setClearanceLevel(4);
+        officer3.setActive(true);
+        officer3.setCenter(center2);
+        officer3.setAssignedCheckpoint("Salalah Airport");
+        officer3.setK9UnitAssigned(true);
+        officerRepository.save(officer3);
 
         Applicant applicant1 = new Applicant();
-        applicant1.setFirstName("John");
-        applicant1.setLastName("Smith");
-        applicant1.setPassportNumber("PS001");
-        applicant1.setNationality("British");
-        applicant1.setCriminalRecorde(false);
+        applicant1.setFirstName("Mohammed");
+        applicant1.setLastName("Al-Lawati");
+        applicant1.setPassportNumber("PA1001");
+        applicant1.setNationality("Omani");
+        applicant1.setCriminalRecord(false);
         applicantRepository.save(applicant1);
 
         Applicant applicant2 = new Applicant();
-        applicant2.setFirstName("Maria");
-        applicant2.setLastName("Garcia");
-        applicant2.setPassportNumber("PS002");
-        applicant2.setNationality("Spanish");
-        applicant2.setCriminalRecorde(true);
+        applicant2.setFirstName("Fatma");
+        applicant2.setLastName("Al-Maamari");
+        applicant2.setPassportNumber("PA1002");
+        applicant2.setNationality("Emirati");
+        applicant2.setCriminalRecord(true);
         applicantRepository.save(applicant2);
 
         Applicant applicant3 = new Applicant();
-        applicant3.setFirstName("Chen");
-        applicant3.setLastName("Wei");
-        applicant3.setPassportNumber("PS004");
-        applicant3.setNationality("Chinese");
-        applicant3.setCriminalRecorde(false);
+        applicant3.setFirstName("Ali");
+        applicant3.setLastName("Al-Hashmi");
+        applicant3.setPassportNumber("PA1003");
+        applicant3.setNationality("Egyptian");
+        applicant3.setCriminalRecord(false);
         applicantRepository.save(applicant3);
 
         AsylumSeeker asylumSeeker = new AsylumSeeker();
-        asylumSeeker.setFirstName("Ali");
-        asylumSeeker.setLastName("Hassan");
-        asylumSeeker.setPassportNumber("PS003");
-        asylumSeeker.setNationality("Syrian");
-        asylumSeeker.setCriminalRecorde(false);
-        asylumSeeker.setCountryOfOrigin("Syria");
+        asylumSeeker.setFirstName("Omar");
+        asylumSeeker.setLastName("Al-Siyabi");
+        asylumSeeker.setPassportNumber("PA1004");
+        asylumSeeker.setNationality("Sudanese");
+        asylumSeeker.setCriminalRecord(false);
+        asylumSeeker.setCountryOfOrigin("Sudan");
         asylumSeeker.setSponsorOrganization("UNHCR");
         applicantRepository.save(asylumSeeker);
 
