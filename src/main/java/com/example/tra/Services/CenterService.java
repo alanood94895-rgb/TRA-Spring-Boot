@@ -10,26 +10,31 @@ public class CenterService {
     @Autowired
     CenterRepository centerRepository;
 
+    public ImmigrationCenter createCenter(ImmigrationCenter center) {
 
-    public ImmigrationCenter createCenter(ImmigrationCenter center){
-        if (center.getName() == null || center.getName().isBlank()){
-            throw Exceptions.badRequest("Center name is required");
+        if (center.getName() == null || center.getName().isBlank()) {
+            throw new RuntimeException("Center name is required");
         }
-        if (center.getLocationCountry() == null || center.getLocationCountry().isBlank()){
-            throw Exceptions.badRequest("Location country is required");
+
+        if (center.getLocationCountry() == null || center.getLocationCountry().isBlank()) {
+            throw new RuntimeException("Location country is required");
         }
-        if (center.getType() == null || center.getType().isBlank()){
-            throw Exceptions.badRequest("Center Type is required");
+
+        if (center.getType() == null || center.getType().isBlank()) {
+            throw new RuntimeException("Center type is required");
         }
-        if (center.getDailyCapacity() <= 0){
-            throw Exceptions.badRequest("Daily Capacity must be grater than 0");
+
+        if (center.getDailyCapacity() <= 0) {
+            throw new RuntimeException("Daily capacity must be greater than 0");
         }
+
         return centerRepository.save(center);
     }
 
-    public ImmigrationCenter getCenterByID(Long id){
-        return centerRepository.findById(id)
-                .orElseThrow(() -> Exceptions.notFound("Center not found with id: " + id));
-    }
+    public ImmigrationCenter getCenterByID(Long id) {
 
+        return centerRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Center not found with id: " + id));
+    }
 }
