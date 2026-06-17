@@ -24,7 +24,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
-    //Handle Any Unexpected System Crashes
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleExceptions(Exception ex, WebRequest request) {
         ErrorResponse errorResponse = new ErrorResponse(
