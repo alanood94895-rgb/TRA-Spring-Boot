@@ -26,9 +26,9 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(ApplicantNotFoundException.class)
+    @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleApplicantNotFoundException(
-            ApplicantNotFoundException ex, HttpServletRequest request) {
+            Exception ex, HttpServletRequest request) {
 
         ErrorResponse error = new ErrorResponse(
                 HttpStatus.NOT_FOUND,
@@ -41,9 +41,9 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(java.lang.Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(
-            Exception ex, HttpServletRequest request) {
+            java.lang.Exception ex, HttpServletRequest request) {
 
         ErrorResponse error = new ErrorResponse(
                 HttpStatus.INTERNAL_SERVER_ERROR,
