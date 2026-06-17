@@ -40,7 +40,7 @@ public class ApplicantService {
             throw Exception.badRequest("Error:First name is required");
         }
         if (lastName == null || lastName.isEmpty()){
-            throw Exceptions.badRequest("Error:Last Name is required");
+            throw Exception.badRequest("Error:Last Name is required");
         }
 
         Applicant applicant = new Applicant();
