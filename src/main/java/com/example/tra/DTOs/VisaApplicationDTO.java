@@ -24,4 +24,6 @@ public class VisaApplicationDTO {
         dto.setApplicantId(visa.getApplicant().getId());
         dto.setOfficerId(visa.getHandlingOfficer().getId());
         return dto;
+    }
+
 }
