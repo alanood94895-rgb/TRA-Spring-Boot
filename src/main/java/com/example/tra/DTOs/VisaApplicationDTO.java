@@ -4,6 +4,9 @@ import com.example.tra.Entities.VisaApplication;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 public class VisaApplicationDTO {
@@ -25,5 +28,11 @@ public class VisaApplicationDTO {
         dto.setOfficerId(visa.getHandlingOfficer().getId());
         return dto;
     }
-
+    public static List<VisaApplicationDTO> convertToDTO(List<VisaApplication> visas) {
+        List<VisaApplicationDTO> dtos = new ArrayList<>();
+        for (VisaApplication visa : visas) {
+            dtos.add(convertToDTO(visa));
+        }
+        return dtos;
+    }
 }
