@@ -22,27 +22,20 @@ public class InterviewService {
     @Autowired
     OfficerRepository officerRepository;
 
-
-    public Interview scheduleInterview(Long applicantId,
-                                       Long officerId,
-                                       String date) {
-
-
+    public Interview scheduleInterview(Long applicantId, Long officerId, String date) {
         Applicant applicant = applicantRepository.findById(applicantId)
-                .orElseThrow(() -> new RuntimeException("Applicant Not Found"));
+                .orElseThrow(() -> Exceptions.notFound("Applicant not found with id: " + applicantId));
 
         ImmigrationOfficer officer = officerRepository.findById(officerId)
-                .orElseThrow(() -> new RuntimeException("Officer Not Found"));
+                .orElseThrow(() -> Exceptions.notFound("Officer not found with id: " + officerId));
 
-        List<Interview> existingInterviews =
-                interviewRepository.findByOfficerIdAndInterviewDate(officerId, date);
 
-        if (!existingInterviews.isEmpty()) {
-            throw new RuntimeException("Officer is double-booked!");
+        List<Interview> existing = interviewRepository.findByOfficerIdAndInterviewDate(officerId, date);
+        if (!existing.isEmpty()) {
+            throw Exceptions.badRequest("Officer is double-booked!");
         }
 
         Interview interview = new Interview();
-
         interview.setApplicant(applicant);
         interview.setOfficer(officer);
         interview.setInterviewDate(date);
@@ -52,17 +45,22 @@ public class InterviewService {
     }
 
     public Interview completeInterview(Long interviewId) {
-
         Interview interview = interviewRepository.findById(interviewId)
-                .orElseThrow(() -> new RuntimeException("Interview Not Found"));
+                .orElseThrow(() -> Exceptions.notFound("Interview not found with id: " + interviewId));
 
         interview.setStatus("COMPLETED");
-
         return interviewRepository.save(interview);
     }
 
-    public List<Interview> getByOfficerAndDate(Long officerId, String date) {
-        return interviewRepository.findByOfficerIdAndInterviewDate(officerId, date);
+    public Interview cancelInterview(Long interviewId){
+        Interview interview = interviewRepository.findById(interviewId)
+                .orElseThrow(() -> Exceptions.notFound("Interview not found with id: " + interviewId));
+
+        interview.setStatus("CANCELLED");
+        return interviewRepository.save(interview);
+    }
+
+    public List<Interview> getOfficerSchedule(Long officerId, String date){
+        return interviewRepository.findByOfficerIdAndInterviewDate(officerId,date);
     }
 }
-
